@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Access Account</title>
+</head>
+<body>
+    <h2>Access Your Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Enter Account Number:</label><br>
+        <input type="text" name="account_number"><br><br>
+        <button type="submit">Access</button>
+    </form>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

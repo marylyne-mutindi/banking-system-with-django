@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Welcome, {{ account.name }}</h2>
+    <p><strong>Account Number:</strong> {{ account.account_number }}</p>
+    <p><strong>Balance:</strong> KES {{ account.balance }}</p>
+
+    <a href="{% url 'deposit' account.account_number %}">Deposit</a> |
+    <a href="{% url 'withdraw' account.account_number %}">Withdraw</a> |
+    <a href="{% url 'home' %}">Logout</a>
+</body>
+</html>

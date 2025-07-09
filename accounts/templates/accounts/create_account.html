@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <h2>Create New Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Account Number:</label><br>
+        <input type="text" name="account_number"><br><br>
+        <label>Name:</label><br>
+        <input type="text" name="name"><br><br>
+        <label>Initial Deposit:</label><br>
+        <input type="number" name="balance"><br><br>
+        <button type="submit">Create Account</button>
+    </form>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
