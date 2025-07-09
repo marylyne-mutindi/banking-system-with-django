@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Account
+from .models import Account, Transaction
 from django.contrib import messages
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def home(request):
     return render(request, 'accounts/home.html')
@@ -47,4 +49,24 @@ def withdraw(request, acc_no):
             account.balance -= amount
             account.save()
             messages.success(request, f"Withdrew KES {amount}")
+
+            def user_dashboard(request, acc_no):
+    account = get_object_or_404(Account, acc_no=acc_no)
+    transactions = Transaction.objects.filter(account=account).order_by('-date')[:5]  # Latest 5
+    context = {
+        'account': account,
+        'transactions': transactions,
+    }
+    return render(request, 'accounts/user_dashboard.html', context)
+
+
+@staff_member_required
+def admin_dashboard(request):
+    accounts = Account.objects.all()
+    transactions = Transaction.objects.all().order_by('-date')[:10]
+    context = {
+        'accounts': accounts,
+        'transactions': transactions,
+    }
+    return render(request, 'accounts/admin_dashboard.html', context)
 
