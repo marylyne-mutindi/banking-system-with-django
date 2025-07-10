@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <h4>All User Accounts</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Account No</th>
+                <th>Name</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account.acc_no }}</td>
+                <td>{{ account.name }}</td>
+                <td>KES {{ account.balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4 class="mt-5">Recent Transactions</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Account No</th>
+                <th>Type</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for txn in transactions %}
+            <tr>
+                <td>{{ txn.date }}</td>
+                <td>{{ txn.account.acc_no }}</td>
+                <td>{{ txn.transaction_type }}</td>
+                <td>KES {{ txn.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
