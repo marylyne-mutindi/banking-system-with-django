@@ -35,15 +35,8 @@ def deposit(request, acc_no):
         amount = float(request.POST['amount'])
         account.balance += amount
         account.save()
-        # Create transaction record
-        Transaction.objects.create(
-            account=account,
-            transaction_type='deposit',
-            amount=amount,
-            description=f"Deposit of KES {amount}"
-        )
         messages.success(request, f"Deposited KES {amount}")
-        return redirect('user_dashboard', acc_no=acc_no)
+        return redirect('access')
     return render(request, 'accounts/deposit.html', {'account': account})
 
 def withdraw(request, acc_no):
@@ -55,16 +48,7 @@ def withdraw(request, acc_no):
         else:
             account.balance -= amount
             account.save()
-            # Create transaction record
-            Transaction.objects.create(
-                account=account,
-                transaction_type='withdrawal',
-                amount=amount,
-                description=f"Withdrawal of KES {amount}"
-            )
             messages.success(request, f"Withdrew KES {amount}")
-            return redirect('user_dashboard', acc_no=acc_no)
-    return render(request, 'accounts/withdraw.html', {'account': account})
 
 def user_dashboard(request, acc_no):
     account = get_object_or_404(Account, account_number=acc_no)
